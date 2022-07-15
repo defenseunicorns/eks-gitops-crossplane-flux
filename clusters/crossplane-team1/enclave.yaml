@@ -1,0 +1,15 @@
+apiVersion: infra.bigbang.dev/v1alpha1
+kind: Enclave
+metadata:
+  name: my-enclave
+  namespace: default
+spec:
+  parameters:
+    enclaveName: my-enclave
+    region: us-east-1
+    availabilityZone1: us-east-1a
+    availabilityZone2: us-east-1b
+    availabilityZone3: us-east-1c
+  compositionSelector:
+    matchLabels:
+      provider: aws

@@ -1,3 +1,5 @@
+## NOTE: This is a work in progress. As of 15 Jul, resources are manually configured with AWS IAM role
+
 # Before You Begin
 
 - Install aws cli, eksctl, crossplane CLI, helm, flux, kubectl
@@ -24,13 +26,17 @@ https://github.com/defenseunicorns/eks-cluster-quickstart#add-users
 
 `kubectl crossplane install configuration registry.upbound.io/xp/getting-started-with-aws:v1.8.1`
 
+- Install Andy's Cool Infra Configuration Package
+
+`kubectl crossplane install configuration ghcr.io/defenseunicorns/crossplane-config-aws-enclave:0.0.5`
+
 `watch kubectl get pkg`
 
 - Apply Controller Config, Provider & Provider Config to use k8s Node IAM Role
 
 `kubectl apply -f controller-config.yaml`
 
-- Credential EKS Cluster & Bind IAM Role to Crossplane Service Account
+# Credential EKS Cluster & Bind IAM Role to Crossplane Service Account
 
 ```
 eksctl utils associate-iam-oidc-provider \
@@ -53,9 +59,24 @@ eksctl create iamserviceaccount \
 --approve
 ```
 
-<!-- aws iam create-role \
-    --role-name "provider-aws" \
-    --assume-role-policy-document file://trust.json \
-    --description "IAM role for provider-aws"
+# Test Provisioning Infra with k8s Node IAM role
 
-aws iam attach-role-policy --role-name "provider-aws" --policy-arn=arn:aws:iam::aws:policy/AdministratorAccess -->
+## RDS
+`kubectl apply -f db.yaml`
+
+`kubectl get rdsinstance -w`
+
+## VPC, Subnets (pub & priv), IGW, NGW, RTB's & DB Subnet group
+`kubectl apply -f enclave.yaml`
+
+`watch kubectl get managed` or `kubectl get enclaves`
+
+# Clean up resources
+
+`kubectl delete enclaves my-enclave`
+
+`watch kubectl get managed`
+
+`kubectl delete -f db.yaml`
+
+`kubectl get rdsinstance -w`
