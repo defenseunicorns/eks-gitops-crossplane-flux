@@ -82,3 +82,7 @@ eksctl create iamserviceaccount \
 `kubectl delete -f db.yaml`
 
 `kubectl get rdsinstance -w`
+
+# Uninstall Crossplane
+
+https://crossplane.io/docs/v1.8/reference/uninstall.html#uninstalling
