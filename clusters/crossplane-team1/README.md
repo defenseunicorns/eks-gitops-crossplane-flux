@@ -26,7 +26,7 @@ https://github.com/defenseunicorns/eks-cluster-quickstart#add-users
 
 `kubectl crossplane install configuration registry.upbound.io/xp/getting-started-with-aws:v1.8.1`
 
-- Install Andy's Cool Infra Composition Package
+- Install Andy's Infra Composition Package
 
 `kubectl crossplane install configuration ghcr.io/defenseunicorns/crossplane-config-aws-enclave:0.0.5`
 
@@ -45,13 +45,13 @@ eksctl utils associate-iam-oidc-provider \
 --approve
 ```
 
-`SERVICE_ACCOUNT_NAME=$(kubectl get providers.pkg.crossplane.io crossplane-provider-aws -o jsonpath="{.status.currentRevision}")`
+`export SERVICE_ACCOUNT_NAME=$(kubectl get providers.pkg.crossplane.io crossplane-provider-aws -o jsonpath="{.status.currentRevision}")`
 
 ```
 eksctl create iamserviceaccount \
 --cluster "crossplane-team1" \
 --region "us-east-1" \
---name="crossplane-provider-aws-a2e16ca2fc1a" \
+--name="$SERVICE_ACCOUNT_NAME" \
 --namespace="crossplane-system" \
 --role-name="provider-aws" \
 --role-only \

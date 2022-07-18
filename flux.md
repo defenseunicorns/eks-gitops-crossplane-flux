@@ -95,4 +95,7 @@ flux create kustomization applications \
 
 ---
 
-Alternatively, clone down the BB umbrella repo and run `$HOME/workspace/bb/bigbang/scripts/install_flux.sh'
+Aternative Flux Install
+Clone down the BB umbrella repo and run `$HOME/workspace/bb/bigbang/scripts/install_flux.sh'
+
+clusters/crossplane-team1/README.md
