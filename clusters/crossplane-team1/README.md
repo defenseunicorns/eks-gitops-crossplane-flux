@@ -8,7 +8,7 @@
 
 `eksctl create cluster -f crossplane-team1.yaml`
 
-`aws eks update-kubeconfig --region us-east-1 --name crossplane-team1`
+`aws eks update-kubeconfig --region us-east-1 --name crossplane-team1` # get kube-config
 
 - Edit the configmap to give other humans access
 
