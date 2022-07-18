@@ -1,0 +1,11 @@
+apiVersion: pkg.crossplane.io/v1
+kind: Configuration
+metadata:
+  name: andys-aws-enclave-composition
+spec:
+  ignoreCrossplaneConstraints: false
+  package: ghcr.io/defenseunicorns/crossplane-config-aws-enclave:0.0.5
+  packagePullPolicy: IfNotPresent
+  revisionActivationPolicy: Automatic
+  revisionHistoryLimit: 0
+  skipDependencyResolution: false

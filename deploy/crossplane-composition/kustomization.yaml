@@ -2,8 +2,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - aws-credentials-sealed.yaml
+  # - aws-credentials-sealed.yaml
   - aws-providerconfig.yaml
-  - crossplane-eks-composition.yaml
-
-
+  - andys-enclave-composition.yaml
+  - getting-started-with-aws-composition.yaml
+  # - crossplane-eks-composition.yaml

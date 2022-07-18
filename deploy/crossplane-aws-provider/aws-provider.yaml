@@ -4,4 +4,6 @@ kind: Provider
 metadata:
   name: crossplane-provider-aws
 spec:
-  package: "public.ecr.aws/awsvijisarathy/crossplane-provider-aws:v0.23.0"
+  package: crossplane/provider-aws:v0.29.0
+  controllerConfigRef:
+    name: aws-config
