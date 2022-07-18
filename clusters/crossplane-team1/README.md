@@ -22,11 +22,11 @@ https://github.com/defenseunicorns/eks-cluster-quickstart#add-users
 
 #Configure Crossplane
 
-- Install `Getting Started` Configuration Package
+- Install `Getting Started` Composition Package
 
 `kubectl crossplane install configuration registry.upbound.io/xp/getting-started-with-aws:v1.8.1`
 
-- Install Andy's Cool Infra Configuration Package
+- Install Andy's Cool Infra Composition Package
 
 `kubectl crossplane install configuration ghcr.io/defenseunicorns/crossplane-config-aws-enclave:0.0.5`
 

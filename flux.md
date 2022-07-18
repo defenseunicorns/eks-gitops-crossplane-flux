@@ -2,9 +2,9 @@
 #
 # Set these environment variables 
 #
-export CLUSTER_NAME=XXXX
-export GITHUB_TOKEN=XXXXX
-export GITHUB_USER=XXXX
+export CLUSTER_NAME=crossplane-team1
+# export GITHUB_TOKEN=XXXXX
+# export GITHUB_USER=XXXX
 
 #
 # Bootstrapping the cluster with Flux
@@ -15,9 +15,8 @@ export GITHUB_USER=XXXX
 kubectl create ns flux-system
 flux bootstrap github \
   --components-extra=image-reflector-controller,image-automation-controller \
-  --owner=$GITHUB_USER \
   --namespace=flux-system \
-  --repository=eks-gitops-crossplane-flux \
+  --repository=https://github.com/defenseunicorns/eks-gitops-crossplane-flux.git \
   --branch=main \
   --path=clusters/$CLUSTER_NAME \
   --personal
@@ -25,7 +24,7 @@ flux bootstrap github \
 #
 # In order to authenticate with the external provider API such as AWS, the Crossplane AWS provider controller need to have access to credentials. 
 # An AWS user with Administrative privileges is needed to enable Crossplane to create the required resources
-# We wil have to first create a configuration file, secrets.conf, with credeantials of an AWS account in the following format.
+# We will have to first create a configuration file, secrets.conf, with credeantials of an AWS account in the following format.
 #
 # [default]
 # aws_access_key_id = XXXXXXXXXXXXXXXXXXXXXXX
@@ -93,3 +92,7 @@ flux create kustomization applications \
 
 
   ```
+
+---
+
+Alternatively, clone down the BB umbrella repo and run `$HOME/workspace/bb/bigbang/scripts/install_flux.sh'
