@@ -26,7 +26,9 @@ https://github.com/defenseunicorns/eks-cluster-quickstart#add-users
 
 `kubectl crossplane install configuration registry.upbound.io/xp/getting-started-with-aws:v1.8.1`
 
-- Install Andy's Infra Composition Package
+- Install Infra Composition Package
+
+Build Source: https://github.com/defenseunicorns/crossplane-config-aws-enclave
 
 `kubectl crossplane install configuration ghcr.io/defenseunicorns/crossplane-config-aws-enclave:0.0.5`
 
