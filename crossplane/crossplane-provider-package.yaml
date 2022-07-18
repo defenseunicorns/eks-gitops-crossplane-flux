@@ -14,11 +14,11 @@ spec:
     kind: GitRepository
     name: flux-system
   healthChecks:
+  # - kind: Deployment
+  #   name: sealed-secrets-controller
+  #   namespace: sealed-secrets
   - kind: Deployment
-    name: sealed-secrets-controller
-    namespace: sealed-secrets
-  - kind: Deployment
-    name: crossplane-provider-aws-45985ebe751d
+    name: crossplane-provider-aws-950698127059
     namespace: crossplane-system
   validation: client
   timeout: 2m
