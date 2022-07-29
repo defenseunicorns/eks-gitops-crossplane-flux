@@ -16,36 +16,34 @@ https://github.com/defenseunicorns/eks-cluster-quickstart#add-users
 
 # Install Crossplane
 
-`helm repo add crossplane-stable https://charts.crossplane.io/stable`
-`helm repo update`
-`helm install crossplane --create-namespace --namespace crossplane-system crossplane-stable/crossplane`
+```
+helm repo add crossplane-stable https://charts.crossplane.io/stable
+helm repo update
+helm install crossplane --create-namespace --namespace crossplane-system crossplane-stable/crossplane
+```
 
-#Configure Crossplane
-
-- Install `Getting Started` Composition Package
-
-`kubectl crossplane install configuration registry.upbound.io/xp/getting-started-with-aws:v1.8.1`
-
-- Install Infra Composition Package
-
-Build Source: https://github.com/defenseunicorns/crossplane-config-aws-enclave
-
-`kubectl crossplane install configuration ghcr.io/defenseunicorns/crossplane-config-aws-enclave:0.0.5`
-
-`watch kubectl get pkg`
-
-- Apply Controller Config, Provider & Provider Config to use k8s Node IAM Role
+- Apply AWS Controller Config for Provider
 
 `kubectl apply -f controller-config.yaml`
 
-# Credential EKS Cluster & Bind IAM Role to Crossplane Service Account
+- Apply Provider & Provider Config to use k8s Node IAM Role (create k8s service account for AWS)
 
+`kubectl apply -f provider.yaml`
+
+`kubectl get providers.pkg.crossplane.io crossplane-provider-aws -o jsonpath="{.status.currentRevision}"`
+
+
+# Credential EKS Cluster 
+
+- Associate IAM OIDC Provider
 ```
 eksctl utils associate-iam-oidc-provider \
 --cluster "crossplane-team1" \
 --region "us-east-1" \
 --approve
 ```
+
+- Create / Bind IAM Role to Crossplane Service Account
 
 `export SERVICE_ACCOUNT_NAME=$(kubectl get providers.pkg.crossplane.io crossplane-provider-aws -o jsonpath="{.status.currentRevision}")`
 
@@ -61,17 +59,43 @@ eksctl create iamserviceaccount \
 --approve
 ```
 
+# Configure Crossplane
+
+- Install `Getting Started with AWS` Composition Package
+
+`kubectl crossplane install configuration registry.upbound.io/xp/getting-started-with-aws:v1.8.1`
+
+- Install Custom Unicorn Infra Composition Package
+
+Build Source: https://github.com/defenseunicorns/crossplane-config-aws-enclave
+
+`kubectl crossplane install configuration ghcr.io/defenseunicorns/crossplane-config-aws-enclave:0.0.5`
+
+- Ensure Packages are Installed / Healthy Before Proceeding
+
+`watch kubectl get pkg`
+
+
 # Test Provisioning Infra with k8s Node IAM role
 
-## RDS
+- RDS
 `kubectl apply -f db.yaml`
 
 `kubectl get rdsinstance -w`
 
-## VPC, Subnets (pub & priv), IGW, NGW, RTB's & DB Subnet group
+- VPC, Subnets (pub & priv), IGW, NGW, RTB's & DB Subnet group
 `kubectl apply -f enclave.yaml`
 
-`watch kubectl get managed` or `kubectl get enclaves`
+`kubectl get enclaves`
+
+- Ensure All Resources All Ready / Synced
+
+`watch kubectl get managed` 
+
+## View a Specific Resource's Configuration (allows you to view what the composition and resource claim collectively provisioned)
+
+kubectl get <resource name from kubectl get managed> -oyaml
+
 
 # Clean up resources
 
