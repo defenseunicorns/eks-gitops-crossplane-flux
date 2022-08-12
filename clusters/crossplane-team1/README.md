@@ -1,4 +1,4 @@
-## NOTE: This is a work in progress. As of 15 Jul, resources are manually configured with AWS IAM role
+## NOTE: This is a work in progress. As of 2 Aug, resources are manually configured with AWS IAM role
 
 # Before You Begin
 
@@ -22,11 +22,14 @@ helm repo update
 helm install crossplane --create-namespace --namespace crossplane-system crossplane-stable/crossplane
 ```
 
-- Apply AWS Controller Config for Provider
+# Install AWS Crossplane Provider and Controller
+
+- Apply AWS Controller Config for Provider (needed to credential workers)
 
 `kubectl apply -f controller-config.yaml`
 
 - Apply Provider & Provider Config to use k8s Node IAM Role (create k8s service account for AWS)
+#similar to the AWS terraform registry
 
 `kubectl apply -f provider.yaml`
 
@@ -59,13 +62,14 @@ eksctl create iamserviceaccount \
 --approve
 ```
 
-# Configure Crossplane
+# Configure AWS Infra Compositions
 
 - Install `Getting Started with AWS` Composition Package
 
 `kubectl crossplane install configuration registry.upbound.io/xp/getting-started-with-aws:v1.8.1`
 
 - Install Custom Unicorn Infra Composition Package
+#similar to a terraform modules / vars
 
 Build Source: https://github.com/defenseunicorns/crossplane-config-aws-enclave
 
@@ -76,7 +80,8 @@ Build Source: https://github.com/defenseunicorns/crossplane-config-aws-enclave
 `watch kubectl get pkg`
 
 
-# Test Provisioning Infra with k8s Node IAM role
+# Apply Resource Claims against our Compositions using the k8s Node IAM role which is credentialed to provision infra
+#similar to terragrunt files which leverage vars that have been built 
 
 - RDS
 `kubectl apply -f db.yaml`
