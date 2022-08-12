@@ -72,6 +72,7 @@ eksctl create iamserviceaccount \
 #similar to a terraform modules / vars
 
 Build Source: https://github.com/defenseunicorns/crossplane-config-aws-enclave
+NOTE: Recommend review of this build source to understand the specfic AWS VPC resources that will be provisioned by the applying the enclave.yaml custom resource in later steps.
 
 `kubectl crossplane install configuration ghcr.io/defenseunicorns/crossplane-config-aws-enclave:0.0.5`
 
