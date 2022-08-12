@@ -100,7 +100,7 @@ NOTE: Recommend review of this build source to understand the specfic AWS VPC re
 
 ## View a Specific Resource's Configuration (allows you to view what the composition and resource claim collectively provisioned)
 
-kubectl get <resource name from kubectl get managed> -oyaml
+kubectl get <`resource name` from kubectl get managed> -oyaml
 
 
 # Clean up resources
