@@ -81,7 +81,7 @@ Build Source: https://github.com/defenseunicorns/crossplane-config-aws-enclave
 
 
 # Apply Resource Claims against our Compositions using the k8s Node IAM role which is credentialed to provision infra
-#similar to terragrunt files which leverage vars that have been built 
+#similar to terragrunt files which leverage vars 
 
 - RDS
 `kubectl apply -f db.yaml`
