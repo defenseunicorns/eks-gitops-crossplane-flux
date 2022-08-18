@@ -28,10 +28,16 @@ helm install crossplane --create-namespace --namespace crossplane-system crosspl
 
 `kubectl apply -f controller-config.yaml`
 
-- Apply Provider & Provider Config to use k8s Node IAM Role (create k8s service account for AWS)
+- Apply Provider to use k8s Node IAM Role (create k8s service account for AWS)
 #similar to the AWS terraform registry
 
 `kubectl apply -f provider.yaml`
+
+#wait for provider to reconcile
+`kubectl get providers`
+
+- Apply Provider Config configure for injected identity
+`kubectl apply -f provider-config.yaml`
 
 `kubectl get providers.pkg.crossplane.io crossplane-provider-aws -o jsonpath="{.status.currentRevision}"`
 

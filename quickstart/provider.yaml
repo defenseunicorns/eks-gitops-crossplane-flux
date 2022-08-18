@@ -7,11 +7,3 @@ spec:
   package: crossplane/provider-aws:v0.29.0
   controllerConfigRef:
     name: aws-config
----
-apiVersion: aws.crossplane.io/v1beta1
-kind: ProviderConfig
-metadata:
-  name: default
-spec:
-  credentials:
-    source: InjectedIdentity
